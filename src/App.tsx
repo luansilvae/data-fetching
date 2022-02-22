@@ -1,25 +1,15 @@
-import { useFetch } from "./hooks/useFetch";
-
-interface Repositories {
-  full_name: string;
-  description: string;
-}
+import { api, useFetch } from "./hooks/useFetch";
+import { useQuery } from "react-query";
+import { Route, Routes } from "react-router-dom";
+import { Repos } from "./pages/Repos";
+import { Repo } from "./pages/Repo";
 
 function App() {
-  const { data: repositories, isFetching } = useFetch<Repositories[]>(
-    "users/luansilvae/repos",
-  );
-
   return (
-    <ul>
-      {isFetching && <p>Carregando...</p> }
-      {repositories?.map((repo) => (
-        <li key={repo.full_name}>
-          <strong>{repo.full_name}</strong>
-          <p>{repo.description}</p>
-        </li>
-      ))}
-    </ul>
+    <Routes>
+      <Route path="/" element={<Repos />} />
+      <Route path="/repos/*" element={<Repo />} />
+    </Routes>
   );
 }
 

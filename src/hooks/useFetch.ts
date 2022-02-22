@@ -1,6 +1,10 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { useEffect, useState } from "react";
 
+export const api = axios.create({
+  baseURL: "https://api.github.com",
+});
+
 export function useFetch<T = unknown>(
   url: string,
   options?: AxiosRequestConfig
@@ -8,10 +12,6 @@ export function useFetch<T = unknown>(
   const [data, setData] = useState<T | null>(null);
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-
-  const api = axios.create({
-    baseURL: "https://api.github.com",
-  });
 
   useEffect(() => {
     api
